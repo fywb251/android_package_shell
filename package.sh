@@ -3,7 +3,7 @@ if [ $count -lt 1 ] ;then
      echo '缺少参数';
 else
      echo '参数正确';
-     appName=$1'11';
+     appName=$1'1';
      
      #echo $appName;
      echo '删除原有的工程';
@@ -96,14 +96,26 @@ else
             find . -type f -name "cube.properties"|xargs perl -pi -e 's/10.108.1.217:18860/192.168.11.18:18860/g';
             echo '修改BASE-WEB';
             find . -type f -name "cube.properties"|xargs perl -pi -e 's/10.108.1.217:8080/192.168.11.18:18860/g';
+            echo '修改URL中的BASE_WS'
+            find . -type f -name "cube.properties"|xargs perl -pi -e 's/183.233.189.114:18860/192.168.11.18:18860/g';
+            echo '修改BASE-WEB';                                         
+            find . -type f -name "cube.properties"|xargs perl -pi -e 's/183.233.189.114:8088/192.168.11.18:18860/g';
+            
             echo '修改MUC_BASE'
             find . -type f -name "cube.properties"|xargs perl -pi -e 's/115.28.0.60:8081/192.168.11.18:9000/g';
             find . -type f -name "cube.properties"|xargs perl -pi -e 's/b5131a6065ba2e980f5b2180f5238385/c7342d0390ac6be8da4bdae0fcde5edf/g';
             echo '修改登陆的接口';
             find . -type f -name "URL.java"|xargs perl -pi -e 's/system\/api\/system\/mobile\/accounts\/login/csair-extension\/api\/accounts\/login/g';
             find . -type f -name "Application.java"|xargs perl -pi -e 's/system\/api\/system\/mobile\/accounts\/login/csair-extension\/api\/accounts\/login/g';
+
+
+            find . -type f -name "URL.java"|xargs perl -pi -e 's/mam\/api\/mam\/clients\/android\//csair-extension\/api\/extendClients\/android\//g';
+            find . -type f -name "Application.java"|xargs perl -pi -e 's/mam\/api\/mam\/clients\/android\//csair-extension\/api\/extendClients\/android\//g';
+            
             echo '替换开机画面'
             cp ./打包/cube_impc/welcome.jpg  ./res/drawable
+            cp ./打包/cube_impc/appicon.png  ./res/drawable
+            
             echo '修改主界面的变色龙为南航移动应用'
             find . -type f -name "index.html"|xargs perl -pi -e 's/变色龙/南航移动应用/g';
             find . -type f -name "main.js"|xargs perl -pi -e 's/变色龙/南航移动应用/g';
@@ -114,6 +126,7 @@ else
             #find . -type f -name "URL.java"|xargs perl -pi -e 's/com.foreveross.chameleon.R/115.28.0.60:8081/g’;
             echo '查找并替换mina的配置文件'
             find . -type f -name "cube.properties"|xargs perl -pi -e 's/serverIp=10.108.1.217/serverIp=192.168.11.18/g';
+            find . -type f -name "cube.properties"|xargs perl -pi -e 's/serverIp=183.233.189.114/serverIp=192.168.11.18/g';
             #find . -type f -name "cube.properties"|xargs perl -pi -e 's/serverPort=18567/serverPort=18567/g';
             echo '修改数据的版本'
             find . -type f -name "cube.properties"|xargs perl -pi -e 's/STORE_DB_VERSION=1/STORE_DB_VERSION=5/g';
